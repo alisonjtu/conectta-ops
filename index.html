@@ -61,15 +61,15 @@
         </button>
     </div>
 
-    <!-- PAINEL DE KPIs EXPANDIDO (5 CARDS) -->
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+    <!-- PAINEL DE KPIs ADAPTÁVEL -->
+    <div id="kpi-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-6">
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
             <span id="label-kpi-total" class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total</span>
-            <p id="kpi-total" class="text-3xl font-extrabold text-white mt-1">0</p>
+            <p id="kpi-total" class="text-2xl md:text-3xl font-extrabold text-white mt-1">0</p>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
             <span id="label-kpi-abertas" class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">KPI 2</span>
-            <p id="kpi-abertas" class="text-3xl font-extrabold text-amber-400 mt-1">0</p>
+            <p id="kpi-abertas" class="text-2xl md:text-3xl font-extrabold text-amber-400 mt-1">0</p>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg truncate">
             <span id="label-kpi-fechadas" class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">KPI 3</span>
@@ -79,9 +79,19 @@
             <span id="label-kpi-taxa" class="text-[11px] font-semibold text-blue-400 uppercase tracking-wider">KPI 4</span>
             <p id="kpi-taxa" class="text-xl md:text-2xl font-extrabold text-blue-400 mt-1 truncate">0%</p>
         </div>
-        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg col-span-2 md:col-span-1">
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
             <span id="label-kpi-mttr" class="text-[11px] font-semibold text-purple-400 uppercase tracking-wider">KPI 5</span>
-            <p id="kpi-mttr" class="text-3xl font-extrabold text-purple-400 mt-1">0</p>
+            <p id="kpi-mttr" class="text-2xl md:text-3xl font-extrabold text-purple-400 mt-1">0</p>
+        </div>
+
+        <!-- CARDS DEDICADOS MKBF E SOCORROS (VISÃO EXECUTIVA) -->
+        <div id="card-kpi-mkbf" class="bg-slate-900/90 p-4 rounded-xl border border-sky-500/30 shadow-lg">
+            <span id="label-kpi-mkbf" class="text-[11px] font-semibold text-sky-400 uppercase tracking-wider">MKBF (Mês)</span>
+            <p id="kpi-mkbf" class="text-2xl md:text-3xl font-extrabold text-sky-400 mt-1">0</p>
+        </div>
+        <div id="card-kpi-sos" class="bg-slate-900/90 p-4 rounded-xl border border-rose-500/30 shadow-lg">
+            <span id="label-kpi-sos" class="text-[11px] font-semibold text-rose-400 uppercase tracking-wider">Socorros (SOS)</span>
+            <p id="kpi-sos" class="text-2xl md:text-3xl font-extrabold text-rose-400 mt-1">0</p>
         </div>
     </div>
 
@@ -89,13 +99,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
             <h3 id="title-chart-1" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Gráfico 1</h3>
-            <div class="h-52 flex justify-center items-center">
+            <div class="h-56 flex justify-center items-center">
                 <canvas id="chart1"></canvas>
             </div>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
             <h3 id="title-chart-2" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Gráfico 2</h3>
-            <div class="h-52 flex justify-center items-center">
+            <div class="h-56 flex justify-center items-center">
                 <canvas id="chart2"></canvas>
             </div>
         </div>
@@ -145,12 +155,14 @@
         const API_URL_OS = 'http://192.168.50.101:5678/webhook/os-hoje';
         const API_URL_PECAS = 'http://192.168.50.101:5678/webhook/man-pecas';
         const API_URL_REVISOES = 'http://192.168.50.101:5678/webhook/man-revisoes';
+        const API_URL_MKBF = 'http://192.168.50.101:5678/webhook/mkbf';
 
         let activeTab = 'visao';
         let rawDataFrota = [];
         let rawDataOS = [];
         let rawDataPecas = [];
         let rawDataRevisoes = [];
+        let rawDataMKBF = [];
         let filteredCurrent = [];
 
         let chart1Instance = null;
@@ -162,17 +174,19 @@
             const statusText = document.getElementById('status-text');
 
             try {
-                const [resFrota, resOS, resPecas, resRevisoes] = await Promise.allSettled([
+                const [resFrota, resOS, resPecas, resRevisoes, resMKBF] = await Promise.allSettled([
                     fetch(API_URL_FROTA).then(r => r.json()),
                     fetch(API_URL_OS).then(r => r.json()),
                     fetch(API_URL_PECAS).then(r => r.json()),
-                    fetch(API_URL_REVISOES).then(r => r.json())
+                    fetch(API_URL_REVISOES).then(r => r.json()),
+                    fetch(API_URL_MKBF).then(r => r.json())
                 ]);
 
                 if (resFrota.status === 'fulfilled') rawDataFrota = Array.isArray(resFrota.value) ? resFrota.value : [];
                 if (resOS.status === 'fulfilled') rawDataOS = Array.isArray(resOS.value) ? resOS.value : [];
                 if (resPecas.status === 'fulfilled') rawDataPecas = Array.isArray(resPecas.value) ? resPecas.value : [];
                 if (resRevisoes.status === 'fulfilled') rawDataRevisoes = Array.isArray(resRevisoes.value) ? resRevisoes.value : [];
+                if (resMKBF.status === 'fulfilled') rawDataMKBF = Array.isArray(resMKBF.value) ? resMKBF.value : (resMKBF.value?.dados || []);
 
                 statusBadge.className = "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
                 statusText.innerText = `Sincronizado às ${new Date().toLocaleTimeString('pt-BR')}`;
@@ -235,7 +249,21 @@
             document.getElementById('tab-btn-os').className = tab === 'os' ? activeClass : btnClass;
             document.getElementById('tab-btn-pecas').className = tab === 'pecas' ? activeClass : btnClass;
             document.getElementById('tab-btn-revisoes').className = tab === 'revisoes' ? activeClass : btnClass;
-            
+
+            const kpiGrid = document.getElementById('kpi-grid');
+            const cardMkbf = document.getElementById('card-kpi-mkbf');
+            const cardSos = document.getElementById('card-kpi-sos');
+
+            if (tab === 'visao') {
+                kpiGrid.className = "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-6";
+                cardMkbf.classList.remove('hidden');
+                cardSos.classList.remove('hidden');
+            } else {
+                kpiGrid.className = "grid grid-cols-2 md:grid-cols-5 gap-4 mb-6";
+                cardMkbf.classList.add('hidden');
+                cardSos.classList.add('hidden');
+            }
+
             renderDashboard();
         }
 
@@ -251,7 +279,7 @@
         }
 
         // ==========================================
-        // ABA 1: VISÃO EXECUTIVA (FROTA)
+        // ABA 1: VISÃO EXECUTIVA (FROTA, MKBF, SOS)
         // ==========================================
         function renderVisaoExecutiva(search) {
             filteredCurrent = rawDataFrota.filter(item => {
@@ -277,26 +305,34 @@
             const topChas = Object.entries(chMap).sort((a,b)=>b[1]-a[1])[0]?.[0] || '-';
             const veiculosNovos = filteredCurrent.filter(v => Number(v.idade_anos) <= 5).length;
 
+            // Extrair indicadores de MKBF do mês mais recente
+            const mkbfAtualObj = rawDataMKBF.length > 0 ? rawDataMKBF[0] : null;
+            const mkbfValor = mkbfAtualObj ? Number(mkbfAtualObj.mkbf || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) : '0';
+            const sosValor = mkbfAtualObj ? (mkbfAtualObj.total_socorros || 0) : '0';
+
             document.getElementById('label-kpi-total').innerText = 'TOTAL DA FROTA';
             document.getElementById('kpi-total').innerText = total;
             
             document.getElementById('label-kpi-abertas').innerText = 'IDADE MÉDIA';
             document.getElementById('kpi-abertas').innerHTML = `${idadeMedia} <span class="text-sm font-normal text-amber-500/70">anos</span>`;
             
-            document.getElementById('label-kpi-fechadas').innerText = 'CARROCERIA PRINCIPAL';
+            document.getElementById('label-kpi-fechadas').innerText = 'CARROCERIA TOP';
             document.getElementById('kpi-fechadas').innerText = topCarr;
             
-            document.getElementById('label-kpi-taxa').innerText = 'CHASSI PRINCIPAL';
+            document.getElementById('label-kpi-taxa').innerText = 'CHASSI TOP';
             document.getElementById('kpi-taxa').innerText = topChas;
             
-            document.getElementById('label-kpi-mttr').innerText = 'VEÍCULOS ATÉ 5 ANOS';
+            document.getElementById('label-kpi-mttr').innerText = 'VEÍCULOS ≤ 5 ANOS';
             document.getElementById('kpi-mttr').innerText = veiculosNovos;
 
+            document.getElementById('kpi-mkbf').innerText = `${mkbfValor} KM`;
+            document.getElementById('kpi-sos').innerText = sosValor;
+
             document.getElementById('title-chart-1').innerText = 'DISTRIBUIÇÃO POR CARROCERIA';
-            document.getElementById('title-chart-2').innerText = 'IDADE DA FROTA (FAIXAS)';
+            document.getElementById('title-chart-2').innerText = 'EVOLUÇÃO HISTÓRICA DO MKBF & SOCORROS (SOS)';
 
             renderVisaoTable(filteredCurrent);
-            renderVisaoCharts(filteredCurrent, cMap);
+            renderVisaoCharts(filteredCurrent, cMap, rawDataMKBF);
         }
 
         function renderVisaoTable(data) {
@@ -335,10 +371,11 @@
             });
         }
 
-        function renderVisaoCharts(data, cMap) {
+        function renderVisaoCharts(data, cMap, mkbfList) {
             if (chart1Instance) chart1Instance.destroy();
             if (chart2Instance) chart2Instance.destroy();
 
+            // Chart 1: Distribuição de Carrocerias
             const ctx1 = document.getElementById('chart1').getContext('2d');
             chart1Instance = new Chart(ctx1, {
                 type: 'doughnut',
@@ -357,33 +394,64 @@
                 }
             });
 
-            const faixas = { '< 5 anos': 0, '5 a 10 anos': 0, '> 10 anos': 0 };
-            data.forEach(v => {
-                const idade = Number(v.idade_anos || 0);
-                if (idade < 5) faixas['< 5 anos']++;
-                else if (idade <= 10) faixas['5 a 10 anos']++;
-                else faixas['> 10 anos']++;
-            });
+            // Chart 2: Evolução Combinada MKBF (Linha) + Socorros (Barra)
+            const mkbfOrdenado = [...mkbfList].reverse();
+            const labels = mkbfOrdenado.map(i => i.mes_ano);
+            const valoresMkbf = mkbfOrdenado.map(i => Number(i.mkbf || 0));
+            const valoresSocorros = mkbfOrdenado.map(i => Number(i.total_socorros || 0));
 
             const ctx2 = document.getElementById('chart2').getContext('2d');
             chart2Instance = new Chart(ctx2, {
-                type: 'bar',
+                type: 'line',
                 data: {
-                    labels: Object.keys(faixas),
-                    datasets: [{
-                        label: 'Qtd Veículos',
-                        data: Object.values(faixas),
-                        backgroundColor: '#f59e0b',
-                        borderRadius: 4
-                    }]
+                    labels: labels.length > 0 ? labels : ['Sem Dados'],
+                    datasets: [
+                        {
+                            label: 'MKBF (KM / Falha)',
+                            data: valoresMkbf.length > 0 ? valoresMkbf : [0],
+                            borderColor: '#38bdf8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Total Socorros (SOS)',
+                            data: valoresSocorros.length > 0 ? valoresSocorros : [0],
+                            borderColor: '#f43f5e',
+                            backgroundColor: 'rgba(244, 63, 94, 0.25)',
+                            borderWidth: 1.5,
+                            type: 'bar',
+                            borderRadius: 4,
+                            yAxisID: 'y1'
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: '#94a3b8', font: { size: 10 } } }
+                    },
                     scales: {
                         x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } }
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: { color: '#38bdf8', font: { size: 10 } },
+                            grid: { color: '#1e293b' },
+                            title: { display: true, text: 'MKBF (KM)', color: '#38bdf8', font: { size: 9 } }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            ticks: { color: '#f43f5e', font: { size: 10 } },
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: 'Qtd SOS', color: '#f43f5e', font: { size: 9 } }
+                        }
                     }
                 }
             });
