@@ -46,14 +46,17 @@
     </header>
 
     <!-- NAVEGAÇÃO POR ABAS -->
-    <div class="flex items-center gap-2 mb-6 border-b border-slate-800 text-xs font-semibold">
-        <button onclick="switchTab('os')" id="tab-btn-os" class="tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2">
+    <div class="flex items-center gap-2 mb-6 border-b border-slate-800 text-xs font-semibold overflow-x-auto">
+        <button onclick="switchTab('visao')" id="tab-btn-visao" class="tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+            📊 Visão Executiva
+        </button>
+        <button onclick="switchTab('os')" id="tab-btn-os" class="px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
             📋 Ordens de Serviço
         </button>
-        <button onclick="switchTab('pecas')" id="tab-btn-pecas" class="px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2">
+        <button onclick="switchTab('pecas')" id="tab-btn-pecas" class="px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
             ⚙️ Peças & Insumos
         </button>
-        <button onclick="switchTab('revisoes')" id="tab-btn-revisoes" class="px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2">
+        <button onclick="switchTab('revisoes')" id="tab-btn-revisoes" class="px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
             🛠️ Revisões Preventivas
         </button>
     </div>
@@ -61,37 +64,37 @@
     <!-- PAINEL DE KPIs EXPANDIDO (5 CARDS) -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <span id="label-kpi-total" class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total de OS</span>
+            <span id="label-kpi-total" class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total</span>
             <p id="kpi-total" class="text-3xl font-extrabold text-white mt-1">0</p>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <span id="label-kpi-abertas" class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">Em Aberto</span>
+            <span id="label-kpi-abertas" class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">KPI 2</span>
             <p id="kpi-abertas" class="text-3xl font-extrabold text-amber-400 mt-1">0</p>
         </div>
-        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <span id="label-kpi-fechadas" class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Concluídas</span>
-            <p id="kpi-fechadas" class="text-3xl font-extrabold text-emerald-400 mt-1">0</p>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg truncate">
+            <span id="label-kpi-fechadas" class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">KPI 3</span>
+            <p id="kpi-fechadas" class="text-xl md:text-2xl font-extrabold text-emerald-400 mt-1 truncate">0</p>
         </div>
-        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <span id="label-kpi-taxa" class="text-[11px] font-semibold text-blue-400 uppercase tracking-wider">Taxa Conclusão</span>
-            <p id="kpi-taxa" class="text-3xl font-extrabold text-blue-400 mt-1">0%</p>
+        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg truncate">
+            <span id="label-kpi-taxa" class="text-[11px] font-semibold text-blue-400 uppercase tracking-wider">KPI 4</span>
+            <p id="kpi-taxa" class="text-xl md:text-2xl font-extrabold text-blue-400 mt-1 truncate">0%</p>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg col-span-2 md:col-span-1">
-            <span id="label-kpi-mttr" class="text-[11px] font-semibold text-purple-400 uppercase tracking-wider">MTTR Médio</span>
-            <p id="kpi-mttr" class="text-3xl font-extrabold text-purple-400 mt-1">0h 0m</p>
+            <span id="label-kpi-mttr" class="text-[11px] font-semibold text-purple-400 uppercase tracking-wider">KPI 5</span>
+            <p id="kpi-mttr" class="text-3xl font-extrabold text-purple-400 mt-1">0</p>
         </div>
     </div>
 
     <!-- SEÇÃO DE GRÁFICOS DINÂMICOS -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <h3 id="title-chart-1" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Distribuição por Categoria</h3>
+            <h3 id="title-chart-1" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Gráfico 1</h3>
             <div class="h-52 flex justify-center items-center">
                 <canvas id="chart1"></canvas>
             </div>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 shadow-lg">
-            <h3 id="title-chart-2" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Ordens por Criticidade</h3>
+            <h3 id="title-chart-2" class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Gráfico 2</h3>
             <div class="h-52 flex justify-center items-center">
                 <canvas id="chart2"></canvas>
             </div>
@@ -101,13 +104,13 @@
     <!-- CONTROLES DE FILTRO E BOTÕES DE EXPORTAÇÃO -->
     <div class="flex flex-col md:flex-row gap-3 mb-4 justify-between items-stretch md:items-center">
         <div class="flex flex-col md:flex-row gap-3 flex-1">
-            <input type="text" id="search-input" placeholder="Pesquisar por Prefixo, Nº OS, Defeito, Peça..." 
+            <input type="text" id="search-input" placeholder="Pesquisar..." 
                    class="bg-slate-900 border border-slate-800 text-xs rounded-lg px-4 py-2.5 text-slate-200 focus:outline-none focus:border-blue-500 flex-1 placeholder-slate-500">
             
             <select id="filter-status" class="bg-slate-900 border border-slate-800 text-xs rounded-lg px-4 py-2.5 text-slate-200 focus:outline-none focus:border-blue-500">
-                <option value="TODOS">Todos os Status</option>
-                <option value="ABERTA">Apenas Abertas</option>
-                <option value="FECHADA">Apenas Fechadas</option>
+                <option value="TODOS">Todos os Status / Tipos</option>
+                <option value="ABERTA">Apenas Abertas (OS)</option>
+                <option value="FECHADA">Apenas Fechadas (OS)</option>
             </select>
         </div>
 
@@ -123,11 +126,11 @@
     </div>
 
     <!-- TABELA DINÂMICA DE DADOS -->
-    <div class="bg-slate-900/90 rounded-xl border border-slate-800 overflow-hidden shadow-lg">
+    <div class="bg-slate-900/90 rounded-xl border border-slate-800 overflow-hidden shadow-lg mb-8">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
                 <thead id="table-head" class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[10px] border-b border-slate-800">
-                    <!-- Gerado dinamicamente via JS conforme a aba ativa -->
+                    <!-- Gerado dinamicamente via JS -->
                 </thead>
                 <tbody id="table-body" class="divide-y divide-slate-800/50">
                 </tbody>
@@ -137,11 +140,14 @@
 
     <!-- SCRIPT DE INTEGRAÇÃO E LÓGICA DA INTERFACE -->
     <script>
+        // URIs das APIs do n8n
+        const API_URL_FROTA = 'http://192.168.50.101:5678/webhook/frota';
         const API_URL_OS = 'http://192.168.50.101:5678/webhook/os-hoje';
         const API_URL_PECAS = 'http://192.168.50.101:5678/webhook/man-pecas';
         const API_URL_REVISOES = 'http://192.168.50.101:5678/webhook/man-revisoes';
 
-        let activeTab = 'os';
+        let activeTab = 'visao';
+        let rawDataFrota = [];
         let rawDataOS = [];
         let rawDataPecas = [];
         let rawDataRevisoes = [];
@@ -150,18 +156,20 @@
         let chart1Instance = null;
         let chart2Instance = null;
 
-        // --- 1. BUSCA DE DADOS NAS APIS DA ETAPA 2 ---
+        // --- 1. BUSCA DE DADOS NAS APIS ---
         async function fetchAllData() {
             const statusBadge = document.getElementById('status-badge');
             const statusText = document.getElementById('status-text');
 
             try {
-                const [resOS, resPecas, resRevisoes] = await Promise.allSettled([
+                const [resFrota, resOS, resPecas, resRevisoes] = await Promise.allSettled([
+                    fetch(API_URL_FROTA).then(r => r.json()),
                     fetch(API_URL_OS).then(r => r.json()),
                     fetch(API_URL_PECAS).then(r => r.json()),
                     fetch(API_URL_REVISOES).then(r => r.json())
                 ]);
 
+                if (resFrota.status === 'fulfilled') rawDataFrota = Array.isArray(resFrota.value) ? resFrota.value : [];
                 if (resOS.status === 'fulfilled') rawDataOS = Array.isArray(resOS.value) ? resOS.value : [];
                 if (resPecas.status === 'fulfilled') rawDataPecas = Array.isArray(resPecas.value) ? resPecas.value : [];
                 if (resRevisoes.status === 'fulfilled') rawDataRevisoes = Array.isArray(resRevisoes.value) ? resRevisoes.value : [];
@@ -177,7 +185,7 @@
             }
         }
 
-        // --- 2. TRATAMENTO DE DATAS E HORAS SEM FUSO ---
+        // --- 2. TRATAMENTO DE DATAS E HORAS ---
         function extrairHoraSemFuso(dataString) {
             if (!dataString) return '--:--';
             let parteHora = '';
@@ -195,63 +203,195 @@
             return dataString;
         }
 
-        // --- 3. CÁLCULO DE MTTR (ORDENS DE SERVIÇO) ---
         function calculateMTTR(data) {
             const closedItems = data.filter(i => 
                 (i.status === 'FECHADA' || i.status === 'CONCLUIDA' || i.status === 'F') && 
                 i.data_abertura && i.data_fechamento
             );
-
             if (closedItems.length === 0) return '0h 0m';
 
-            let totalMinutes = 0;
-            let validCount = 0;
-
+            let totalMinutes = 0, validCount = 0;
             closedItems.forEach(item => {
                 const start = new Date(item.data_abertura);
                 const end = new Date(item.data_fechamento);
-
                 if (!isNaN(start) && !isNaN(end) && end >= start) {
-                    const diffMs = end - start;
-                    totalMinutes += Math.floor(diffMs / (1000 * 60));
+                    totalMinutes += Math.floor((end - start) / (1000 * 60));
                     validCount++;
                 }
             });
 
             if (validCount === 0) return '0h 0m';
-
             const avgMinutes = Math.round(totalMinutes / validCount);
-            const hours = Math.floor(avgMinutes / 60);
-            const mins = avgMinutes % 60;
-
-            return `${hours}h ${mins}m`;
+            return `${Math.floor(avgMinutes / 60)}h ${avgMinutes % 60}m`;
         }
 
-        // --- 4. TROCA DE ABAS ---
+        // --- 3. TROCA DE ABAS ---
         function switchTab(tab) {
             activeTab = tab;
-            document.getElementById('tab-btn-os').className = tab === 'os' ? 'tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2' : 'px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2';
-            document.getElementById('tab-btn-pecas').className = tab === 'pecas' ? 'tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2' : 'px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2';
-            document.getElementById('tab-btn-revisoes').className = tab === 'revisoes' ? 'tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2' : 'px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2';
+            const btnClass = 'px-4 py-2.5 text-slate-400 hover:text-slate-200 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap';
+            const activeClass = 'tab-active px-4 py-2.5 rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap';
+            
+            document.getElementById('tab-btn-visao').className = tab === 'visao' ? activeClass : btnClass;
+            document.getElementById('tab-btn-os').className = tab === 'os' ? activeClass : btnClass;
+            document.getElementById('tab-btn-pecas').className = tab === 'pecas' ? activeClass : btnClass;
+            document.getElementById('tab-btn-revisoes').className = tab === 'revisoes' ? activeClass : btnClass;
             
             renderDashboard();
         }
 
-        // --- 5. RENDERIZAÇÃO GERAL CONFORME ABA ATIVA ---
+        // --- 4. RENDERIZAÇÃO GERAL ---
         function renderDashboard() {
             const search = document.getElementById('search-input').value.toLowerCase();
             const statusFilter = document.getElementById('filter-status').value;
 
-            if (activeTab === 'os') {
-                renderOS(search, statusFilter);
-            } else if (activeTab === 'pecas') {
-                renderPecas(search, statusFilter);
-            } else if (activeTab === 'revisoes') {
-                renderRevisoes(search, statusFilter);
-            }
+            if (activeTab === 'visao') renderVisaoExecutiva(search);
+            else if (activeTab === 'os') renderOS(search, statusFilter);
+            else if (activeTab === 'pecas') renderPecas(search, statusFilter);
+            else if (activeTab === 'revisoes') renderRevisoes(search, statusFilter);
         }
 
-        // --- RENDERIZAR ABA: ORDENS DE SERVIÇO ---
+        // ==========================================
+        // ABA 1: VISÃO EXECUTIVA (FROTA)
+        // ==========================================
+        function renderVisaoExecutiva(search) {
+            filteredCurrent = rawDataFrota.filter(item => {
+                const matchesSearch = (item.prefixo || '').toLowerCase().includes(search) ||
+                                      (item.chassi || '').toLowerCase().includes(search) ||
+                                      (item.carroceria || '').toLowerCase().includes(search);
+                return matchesSearch;
+            });
+
+            const total = filteredCurrent.length;
+            const somaIdades = filteredCurrent.reduce((acc, veic) => acc + Number(veic.idade_anos || 0), 0);
+            const idadeMedia = total > 0 ? (somaIdades / total).toFixed(1) : 0;
+
+            const cMap = {}, chMap = {};
+            filteredCurrent.forEach(v => {
+                const c = v.carroceria || 'N/A';
+                const ch = v.chassi || 'N/A';
+                cMap[c] = (cMap[c] || 0) + 1;
+                chMap[ch] = (chMap[ch] || 0) + 1;
+            });
+
+            const topCarr = Object.entries(cMap).sort((a,b)=>b[1]-a[1])[0]?.[0] || '-';
+            const topChas = Object.entries(chMap).sort((a,b)=>b[1]-a[1])[0]?.[0] || '-';
+            const veiculosNovos = filteredCurrent.filter(v => Number(v.idade_anos) <= 5).length;
+
+            document.getElementById('label-kpi-total').innerText = 'TOTAL DA FROTA';
+            document.getElementById('kpi-total').innerText = total;
+            
+            document.getElementById('label-kpi-abertas').innerText = 'IDADE MÉDIA';
+            document.getElementById('kpi-abertas').innerHTML = `${idadeMedia} <span class="text-sm font-normal text-amber-500/70">anos</span>`;
+            
+            document.getElementById('label-kpi-fechadas').innerText = 'CARROCERIA PRINCIPAL';
+            document.getElementById('kpi-fechadas').innerText = topCarr;
+            
+            document.getElementById('label-kpi-taxa').innerText = 'CHASSI PRINCIPAL';
+            document.getElementById('kpi-taxa').innerText = topChas;
+            
+            document.getElementById('label-kpi-mttr').innerText = 'VEÍCULOS ATÉ 5 ANOS';
+            document.getElementById('kpi-mttr').innerText = veiculosNovos;
+
+            document.getElementById('title-chart-1').innerText = 'DISTRIBUIÇÃO POR CARROCERIA';
+            document.getElementById('title-chart-2').innerText = 'IDADE DA FROTA (FAIXAS)';
+
+            renderVisaoTable(filteredCurrent);
+            renderVisaoCharts(filteredCurrent, cMap);
+        }
+
+        function renderVisaoTable(data) {
+            const thead = document.getElementById('table-head');
+            thead.innerHTML = `
+                <tr>
+                    <th class="py-3 px-4">Cód. Veículo</th>
+                    <th class="py-3 px-4">Prefixo</th>
+                    <th class="py-3 px-4">Carroceria</th>
+                    <th class="py-3 px-4">Chassi</th>
+                    <th class="py-3 px-4">Data Início</th>
+                    <th class="py-3 px-4">Idade (Anos)</th>
+                </tr>
+            `;
+
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500">Nenhum veículo encontrado.</td></tr>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-mono text-slate-200">${item.codigo_veiculo || '-'}</td>
+                    <td class="py-3 px-4 font-bold text-white">${item.prefixo || 'N/A'}</td>
+                    <td class="py-3 px-4 text-slate-300">${item.carroceria || '-'}</td>
+                    <td class="py-3 px-4 text-slate-400">${item.chassi || '-'}</td>
+                    <td class="py-3 px-4 text-slate-400">${formatarDataSemFuso(item.data_inicio_utilizacao)}</td>
+                    <td class="py-3 px-4 font-semibold text-amber-400">${Number(item.idade_anos || 0).toFixed(1)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderVisaoCharts(data, cMap) {
+            if (chart1Instance) chart1Instance.destroy();
+            if (chart2Instance) chart2Instance.destroy();
+
+            const ctx1 = document.getElementById('chart1').getContext('2d');
+            chart1Instance = new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(cMap),
+                    datasets: [{
+                        data: Object.values(cMap),
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#0ea5e9'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } }
+                }
+            });
+
+            const faixas = { '< 5 anos': 0, '5 a 10 anos': 0, '> 10 anos': 0 };
+            data.forEach(v => {
+                const idade = Number(v.idade_anos || 0);
+                if (idade < 5) faixas['< 5 anos']++;
+                else if (idade <= 10) faixas['5 a 10 anos']++;
+                else faixas['> 10 anos']++;
+            });
+
+            const ctx2 = document.getElementById('chart2').getContext('2d');
+            chart2Instance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(faixas),
+                    datasets: [{
+                        label: 'Qtd Veículos',
+                        data: Object.values(faixas),
+                        backgroundColor: '#f59e0b',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
+                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // ABA 2: ORDENS DE SERVIÇO
+        // ==========================================
         function renderOS(search, statusFilter) {
             filteredCurrent = rawDataOS.filter(item => {
                 const matchesSearch = (item.prefixo || '').toLowerCase().includes(search) ||
@@ -268,8 +408,7 @@
             const abertas = rawDataOS.filter(i => (i.status || '').toUpperCase() === 'ABERTA' || i.status === 'A').length;
             const fechadas = rawDataOS.filter(i => (i.status || '').toUpperCase() === 'FECHADA' || i.status === 'CONCLUIDA' || i.status === 'F').length;
             const taxa = total > 0 ? Math.round((fechadas / total) * 100) : 0;
-            const mttr = calculateMTTR(rawDataOS);
-
+            
             document.getElementById('label-kpi-total').innerText = 'TOTAL DE OS';
             document.getElementById('kpi-total').innerText = total;
             document.getElementById('label-kpi-abertas').innerText = 'EM ABERTO';
@@ -279,7 +418,7 @@
             document.getElementById('label-kpi-taxa').innerText = 'TAXA CONCLUSÃO';
             document.getElementById('kpi-taxa').innerText = `${taxa}%`;
             document.getElementById('label-kpi-mttr').innerText = 'MTTR MÉDIO';
-            document.getElementById('kpi-mttr').innerText = mttr;
+            document.getElementById('kpi-mttr').innerText = calculateMTTR(rawDataOS);
 
             document.getElementById('title-chart-1').innerText = 'DISTRIBUIÇÃO POR CATEGORIA';
             document.getElementById('title-chart-2').innerText = 'ORDENS POR CRITICIDADE';
@@ -304,11 +443,7 @@
 
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
-
-            if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Nenhuma Ordem de Serviço encontrada.</td></tr>`;
-                return;
-            }
+            if (data.length === 0) return tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Nenhuma Ordem de Serviço encontrada.</td></tr>`;
 
             data.forEach(item => {
                 const tr = document.createElement('tr');
@@ -324,13 +459,10 @@
                     ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">ABERTA</span>`
                     : `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">CONCLUÍDA</span>`;
 
-                const horaFormatada = extrairHoraSemFuso(item.data_abertura);
-                const dataFormatada = formatarDataSemFuso(item.data_abertura_formatada || item.data_abertura);
-
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-mono text-slate-200">#${item.numero_os || item.id_os}</td>
                     <td class="py-3 px-4 font-semibold text-white">${item.prefixo || 'N/A'} <span class="text-[10px] text-slate-500 font-normal">(${item.codigo_veiculo || ''})</span></td>
-                    <td class="py-3 px-4 text-slate-400">${dataFormatada} <span class="text-blue-400 font-mono text-[11px]">${horaFormatada !== '--:--' ? horaFormatada : ''}</span></td>
+                    <td class="py-3 px-4 text-slate-400">${formatarDataSemFuso(item.data_abertura_formatada || item.data_abertura)} <span class="text-blue-400 font-mono text-[11px]">${extrairHoraSemFuso(item.data_abertura) !== '--:--' ? extrairHoraSemFuso(item.data_abertura) : ''}</span></td>
                     <td class="py-3 px-4 text-slate-300">${item.categoria || 'Corretiva'}</td>
                     <td class="py-3 px-4 font-semibold ${isCritica ? 'text-red-400 animate-pulse' : 'text-slate-300'}">${item.criticidade || 'Normal'}</td>
                     <td class="py-3 px-4 text-slate-400 max-w-xs truncate">${item.defeito_relatado || 'Sem descrição'}</td>
@@ -341,69 +473,37 @@
         }
 
         function renderOSCharts(data) {
-            const catMap = {};
-            const critMap = {};
-
+            const catMap = {}, critMap = {};
             data.forEach(i => {
-                const cat = i.categoria || 'Mecânica';
-                const crit = i.criticidade || 'Média';
-                catMap[cat] = (catMap[cat] || 0) + 1;
-                critMap[crit] = (critMap[crit] || 0) + 1;
+                catMap[i.categoria || 'Mecânica'] = (catMap[i.categoria || 'Mecânica'] || 0) + 1;
+                critMap[i.criticidade || 'Média'] = (critMap[i.criticidade || 'Média'] || 0) + 1;
             });
 
             if (chart1Instance) chart1Instance.destroy();
             if (chart2Instance) chart2Instance.destroy();
 
-            const ctx1 = document.getElementById('chart1').getContext('2d');
-            chart1Instance = new Chart(ctx1, {
+            chart1Instance = new Chart(document.getElementById('chart1').getContext('2d'), {
                 type: 'doughnut',
-                data: {
-                    labels: Object.keys(catMap),
-                    datasets: [{
-                        data: Object.values(catMap),
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } }
-                }
+                data: { labels: Object.keys(catMap), datasets: [{ data: Object.values(catMap), backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } } }
             });
 
-            const ctx2 = document.getElementById('chart2').getContext('2d');
-            chart2Instance = new Chart(ctx2, {
+            chart2Instance = new Chart(document.getElementById('chart2').getContext('2d'), {
                 type: 'bar',
-                data: {
-                    labels: Object.keys(critMap),
-                    datasets: [{
-                        label: 'OSs',
-                        data: Object.values(critMap),
-                        backgroundColor: '#38bdf8',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } }
-                    }
-                }
+                data: { labels: Object.keys(critMap), datasets: [{ label: 'OSs', data: Object.values(critMap), backgroundColor: '#38bdf8', borderRadius: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } } } }
             });
         }
 
-        // --- RENDERIZAR ABA: PEÇAS & INSUMOS ---
+        // ==========================================
+        // ABA 3: PEÇAS
+        // ==========================================
         function renderPecas(search, statusFilter) {
             filteredCurrent = rawDataPecas.filter(item => {
-                const matchesSearch = (item.descricao_item || '').toLowerCase().includes(search) ||
-                                      (item.codigo_item || '').toString().includes(search) ||
-                                      (item.prefixo || '').toLowerCase().includes(search) ||
-                                      (item.numero_os || '').toString().includes(search);
-                return matchesSearch;
+                return (item.descricao_item || '').toLowerCase().includes(search) ||
+                       (item.codigo_item || '').toString().includes(search) ||
+                       (item.prefixo || '').toLowerCase().includes(search) ||
+                       (item.numero_os || '').toString().includes(search);
             });
 
             const totalItens = rawDataPecas.reduce((acc, i) => acc + (Number(i.quantidade) || 1), 0);
@@ -442,29 +542,21 @@
                     <th class="py-3 px-4">Data Requisição</th>
                 </tr>
             `;
-
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
-
-            if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500">Nenhum registro de peça encontrado.</td></tr>`;
-                return;
-            }
+            if (data.length === 0) return tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500">Nenhum registro encontrado.</td></tr>`;
 
             data.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-800/50 transition-colors";
-                const vUnit = Number(item.valor_unitario) || 0;
-                const vTotal = Number(item.valor_total) || 0;
-
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-mono text-slate-200">#${item.numero_os || item.id_os}</td>
                     <td class="py-3 px-4 font-semibold text-white">${item.prefixo || 'N/A'}</td>
                     <td class="py-3 px-4 text-slate-400 font-mono">${item.codigo_item || '-'}</td>
                     <td class="py-3 px-4 font-semibold text-slate-200">${item.descricao_item || 'Item Geral'}</td>
                     <td class="py-3 px-4 text-blue-400 font-bold">${item.quantidade || 1}</td>
-                    <td class="py-3 px-4 text-slate-300">R$ ${vUnit.toFixed(2)}</td>
-                    <td class="py-3 px-4 text-emerald-400 font-semibold">R$ ${vTotal.toFixed(2)}</td>
+                    <td class="py-3 px-4 text-slate-300">R$ ${(Number(item.valor_unitario)||0).toFixed(2)}</td>
+                    <td class="py-3 px-4 text-emerald-400 font-semibold">R$ ${(Number(item.valor_total)||0).toFixed(2)}</td>
                     <td class="py-3 px-4 text-slate-400">${formatarDataSemFuso(item.data_requisicao)}</td>
                 `;
                 tbody.appendChild(tr);
@@ -473,71 +565,33 @@
 
         function renderPecasCharts(data) {
             const pecasAgg = {};
-            data.forEach(i => {
-                const desc = i.descricao_item || 'Outros';
-                pecasAgg[desc] = (pecasAgg[desc] || 0) + (Number(i.quantidade) || 1);
-            });
-
-            const topPecas = Object.entries(pecasAgg)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 5);
+            data.forEach(i => pecasAgg[i.descricao_item || 'Outros'] = (pecasAgg[i.descricao_item || 'Outros'] || 0) + (Number(i.quantidade) || 1));
+            const topPecas = Object.entries(pecasAgg).sort((a, b) => b[1] - a[1]).slice(0, 5);
 
             if (chart1Instance) chart1Instance.destroy();
             if (chart2Instance) chart2Instance.destroy();
 
-            const ctx1 = document.getElementById('chart1').getContext('2d');
-            chart1Instance = new Chart(ctx1, {
+            chart1Instance = new Chart(document.getElementById('chart1').getContext('2d'), {
                 type: 'bar',
-                data: {
-                    labels: topPecas.map(p => p[0]),
-                    datasets: [{
-                        label: 'Quantidade',
-                        data: topPecas.map(p => p[1]),
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } },
-                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } }
-                    }
-                }
+                data: { labels: topPecas.map(p => p[0]), datasets: [{ data: topPecas.map(p => p[1]), backgroundColor: '#3b82f6', borderRadius: 4 }] },
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#94a3b8', font: { size: 10 } } }, y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } } } }
             });
 
-            const ctx2 = document.getElementById('chart2').getContext('2d');
-            chart2Instance = new Chart(ctx2, {
+            chart2Instance = new Chart(document.getElementById('chart2').getContext('2d'), {
                 type: 'doughnut',
-                data: {
-                    labels: ['Atendido', 'Pendente'],
-                    datasets: [{
-                        data: [
-                            data.filter(i => (i.status_item || '').toUpperCase() === 'ATENDIDO' || i.status_item === 'A').length,
-                            data.filter(i => (i.status_item || '').toUpperCase() !== 'ATENDIDO' && i.status_item !== 'A').length
-                        ],
-                        backgroundColor: ['#10b981', '#f59e0b'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } }
-                }
+                data: { labels: ['Atendido', 'Pendente'], datasets: [{ data: [data.filter(i => (i.status_item || '').toUpperCase() === 'ATENDIDO' || i.status_item === 'A').length, data.filter(i => (i.status_item || '').toUpperCase() !== 'ATENDIDO' && i.status_item !== 'A').length], backgroundColor: ['#10b981', '#f59e0b'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } } }
             });
         }
 
-        // --- RENDERIZAR ABA: REVISÕES PREVENTIVAS ---
+        // ==========================================
+        // ABA 4: REVISÕES
+        // ==========================================
         function renderRevisoes(search, statusFilter) {
             filteredCurrent = rawDataRevisoes.filter(item => {
-                const matchesSearch = (item.prefixo || '').toLowerCase().includes(search) ||
-                                      (item.codigo_veiculo || '').toString().includes(search) ||
-                                      (item.descricao_plano || '').toLowerCase().includes(search);
-                return matchesSearch;
+                return (item.prefixo || '').toLowerCase().includes(search) ||
+                       (item.codigo_veiculo || '').toString().includes(search) ||
+                       (item.descricao_plano || '').toLowerCase().includes(search);
             });
 
             const totalVeiculos = rawDataRevisoes.length;
@@ -553,7 +607,7 @@
             document.getElementById('kpi-fechadas').innerText = proximaCount;
             document.getElementById('label-kpi-taxa').innerText = 'REVISÕES VENCIDAS';
             document.getElementById('kpi-taxa').innerText = vencidaCount;
-            document.getElementById('label-kpi-mttr').innerText = 'DISPONIBILIDADE DA FROTA';
+            document.getElementById('label-kpi-mttr').innerText = 'DISPONIBILIDADE';
             document.getElementById('kpi-mttr').innerText = totalVeiculos > 0 ? `${Math.round((okCount / totalVeiculos) * 100)}%` : '0%';
 
             document.getElementById('title-chart-1').innerText = 'STATUS DAS REVISÕES PREVENTIVAS';
@@ -576,28 +630,18 @@
                     <th class="py-3 px-4">Status</th>
                 </tr>
             `;
-
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
-
-            if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Nenhum veículo em revisão preventiva encontrado.</td></tr>`;
-                return;
-            }
+            if (data.length === 0) return tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Nenhum veículo em revisão preventiva encontrado.</td></tr>`;
 
             data.forEach(item => {
                 const tr = document.createElement('tr');
                 const st = (item.status_revisao || 'OK').toUpperCase();
-
                 if (st === 'VENCIDA') tr.className = "bg-red-950/30 hover:bg-red-900/40 border-l-4 border-red-500 transition-colors";
                 else if (st === 'PRÓXIMA' || st === 'PROXIMA') tr.className = "bg-amber-950/20 hover:bg-amber-900/30 border-l-4 border-amber-500 transition-colors";
                 else tr.className = "hover:bg-slate-800/50 transition-colors";
 
-                const badge = st === 'VENCIDA' 
-                    ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">VENCIDA</span>`
-                    : (st === 'PRÓXIMA' || st === 'PROXIMA'
-                        ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">PRÓXIMA</span>`
-                        : `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">EM DIA (OK)</span>`);
+                const badge = st === 'VENCIDA' ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">VENCIDA</span>` : (st === 'PRÓXIMA' || st === 'PROXIMA' ? `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">PRÓXIMA</span>` : `<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">EM DIA (OK)</span>`);
 
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-mono text-slate-200">#${item.codigo_veiculo}</td>
@@ -615,107 +659,51 @@
         function renderRevisoesCharts(data) {
             const statusMap = { 'EM DIA (OK)': 0, 'PRÓXIMA': 0, 'VENCIDA': 0 };
             const planoMap = {};
-
             data.forEach(i => {
                 const st = (i.status_revisao || 'OK').toUpperCase();
                 if (st === 'VENCIDA') statusMap['VENCIDA']++;
                 else if (st === 'PRÓXIMA' || st === 'PROXIMA') statusMap['PRÓXIMA']++;
                 else statusMap['EM DIA (OK)']++;
-
-                const plano = i.codigo_plano || 'REV-PADRAO';
-                planoMap[plano] = (planoMap[plano] || 0) + 1;
+                planoMap[i.codigo_plano || 'REV-PADRAO'] = (planoMap[i.codigo_plano || 'REV-PADRAO'] || 0) + 1;
             });
 
             if (chart1Instance) chart1Instance.destroy();
             if (chart2Instance) chart2Instance.destroy();
 
-            const ctx1 = document.getElementById('chart1').getContext('2d');
-            chart1Instance = new Chart(ctx1, {
+            chart1Instance = new Chart(document.getElementById('chart1').getContext('2d'), {
                 type: 'doughnut',
-                data: {
-                    labels: Object.keys(statusMap),
-                    datasets: [{
-                        data: Object.values(statusMap),
-                        backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } }
-                }
+                data: { labels: Object.keys(statusMap), datasets: [{ data: Object.values(statusMap), backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 10 } } } } }
             });
 
-            const ctx2 = document.getElementById('chart2').getContext('2d');
-            chart2Instance = new Chart(ctx2, {
+            chart2Instance = new Chart(document.getElementById('chart2').getContext('2d'), {
                 type: 'bar',
-                data: {
-                    labels: Object.keys(planoMap),
-                    datasets: [{
-                        label: 'Veículos',
-                        data: Object.values(planoMap),
-                        backgroundColor: '#8b5cf6',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } }
-                    }
-                }
+                data: { labels: Object.keys(planoMap), datasets: [{ label: 'Veículos', data: Object.values(planoMap), backgroundColor: '#8b5cf6', borderRadius: 4 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: '#1e293b' } } } }
             });
         }
 
-        // --- EXPORTAÇÃO PARA EXCEL / CSV ---
+        // ==========================================
+        // EXPORTAÇÕES
+        // ==========================================
         function exportToCSV() {
-            if (!filteredCurrent || filteredCurrent.length === 0) {
-                alert('Nenhum registro filtrado disponível para exportação.');
-                return;
-            }
+            if (!filteredCurrent || filteredCurrent.length === 0) return alert('Nenhum registro filtrado disponível para exportação.');
+            let headers = [], rows = [];
 
-            let headers = [];
-            let rows = [];
-
-            if (activeTab === 'os') {
-                headers = ["Numero_OS", "Prefixo", "Codigo_Veiculo", "Data_Abertura", "Categoria", "Criticidade", "Defeito_Relatado", "Status"];
+            if (activeTab === 'visao') {
+                headers = ["Codigo_Veiculo", "Prefixo", "Carroceria", "Chassi", "Data_Inicio", "Idade_Anos"];
                 rows = filteredCurrent.map(item => [
-                    `"${item.numero_os || item.id_os || ''}"`,
-                    `"${item.prefixo || ''}"`,
-                    `"${item.codigo_veiculo || ''}"`,
-                    `"${formatarDataSemFuso(item.data_abertura)} ${extrairHoraSemFuso(item.data_abertura)}"`,
-                    `"${item.categoria || ''}"`,
-                    `"${item.criticidade || ''}"`,
-                    `"${(item.defeito_relatado || '').replace(/"/g, '""')}"`,
-                    `"${item.status || ''}"`
+                    `"${item.codigo_veiculo || ''}"`, `"${item.prefixo || ''}"`, `"${item.carroceria || ''}"`, `"${item.chassi || ''}"`, `"${formatarDataSemFuso(item.data_inicio_utilizacao)}"`, `"${item.idade_anos || 0}"`
                 ]);
+            } else if (activeTab === 'os') {
+                headers = ["Numero_OS", "Prefixo", "Codigo_Veiculo", "Data_Abertura", "Categoria", "Criticidade", "Defeito_Relatado", "Status"];
+                rows = filteredCurrent.map(item => [ `"${item.numero_os || item.id_os || ''}"`, `"${item.prefixo || ''}"`, `"${item.codigo_veiculo || ''}"`, `"${formatarDataSemFuso(item.data_abertura)} ${extrairHoraSemFuso(item.data_abertura)}"`, `"${item.categoria || ''}"`, `"${item.criticidade || ''}"`, `"${(item.defeito_relatado || '').replace(/"/g, '""')}"`, `"${item.status || ''}"` ]);
             } else if (activeTab === 'pecas') {
                 headers = ["Numero_OS", "Prefixo", "Codigo_Item", "Descricao_Item", "Quantidade", "Valor_Unitario", "Valor_Total", "Data_Requisicao"];
-                rows = filteredCurrent.map(item => [
-                    `"${item.numero_os || ''}"`,
-                    `"${item.prefixo || ''}"`,
-                    `"${item.codigo_item || ''}"`,
-                    `"${(item.descricao_item || '').replace(/"/g, '""')}"`,
-                    `"${item.quantidade || 1}"`,
-                    `"${item.valor_unitario || 0}"`,
-                    `"${item.valor_total || 0}"`,
-                    `"${formatarDataSemFuso(item.data_requisicao)}"`
-                ]);
+                rows = filteredCurrent.map(item => [ `"${item.numero_os || ''}"`, `"${item.prefixo || ''}"`, `"${item.codigo_item || ''}"`, `"${(item.descricao_item || '').replace(/"/g, '""')}"`, `"${item.quantidade || 1}"`, `"${item.valor_unitario || 0}"`, `"${item.valor_total || 0}"`, `"${formatarDataSemFuso(item.data_requisicao)}"` ]);
             } else if (activeTab === 'revisoes') {
                 headers = ["Codigo_Veiculo", "Prefixo", "Plano", "KM_Atual", "Proxima_Revisao_KM", "KM_Restante", "Status"];
-                rows = filteredCurrent.map(item => [
-                    `"${item.codigo_veiculo || ''}"`,
-                    `"${item.prefixo || ''}"`,
-                    `"${item.codigo_plano || ''}"`,
-                    `"${item.km_atual || 0}"`,
-                    `"${item.km_proxima_revisao || 0}"`,
-                    `"${item.km_restante || 0}"`,
-                    `"${item.status_revisao || 'OK'}"`
-                ]);
+                rows = filteredCurrent.map(item => [ `"${item.codigo_veiculo || ''}"`, `"${item.prefixo || ''}"`, `"${item.codigo_plano || ''}"`, `"${item.km_atual || 0}"`, `"${item.km_proxima_revisao || 0}"`, `"${item.km_restante || 0}"`, `"${item.status_revisao || 'OK'}"` ]);
             }
 
             const csvContent = "\uFEFF" + [headers.join(";"), ...rows.map(e => e.join(";"))].join("\n");
@@ -726,13 +714,8 @@
             link.click();
         }
 
-        // --- EXPORTAÇÃO PARA PDF ---
         function exportToPDF() {
-            if (!filteredCurrent || filteredCurrent.length === 0) {
-                alert('Nenhum registro filtrado disponível para exportação.');
-                return;
-            }
-
+            if (!filteredCurrent || filteredCurrent.length === 0) return alert('Nenhum registro filtrado disponível para exportação.');
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
@@ -741,60 +724,29 @@
             doc.setFontSize(9);
             doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')} | Total Registros: ${filteredCurrent.length}`, 14, 22);
 
-            let tableColumn = [];
-            let tableRows = [];
+            let tableColumn = [], tableRows = [];
 
-            if (activeTab === 'os') {
+            if (activeTab === 'visao') {
+                tableColumn = ["Código", "Prefixo", "Carroceria", "Chassi", "Data Início", "Idade"];
+                tableRows = filteredCurrent.map(item => [ item.codigo_veiculo, item.prefixo || 'N/A', item.carroceria || '-', item.chassi || '-', formatarDataSemFuso(item.data_inicio_utilizacao), `${Number(item.idade_anos || 0).toFixed(1)} anos` ]);
+            } else if (activeTab === 'os') {
                 tableColumn = ["Nº OS", "Prefixo", "Abertura", "Categoria", "Criticidade", "Status"];
-                tableRows = filteredCurrent.map(item => [
-                    item.numero_os || item.id_os,
-                    item.prefixo || 'N/A',
-                    `${formatarDataSemFuso(item.data_abertura)} ${extrairHoraSemFuso(item.data_abertura)}`,
-                    item.categoria || 'Corretiva',
-                    item.criticidade || 'Normal',
-                    item.status || 'ABERTA'
-                ]);
+                tableRows = filteredCurrent.map(item => [ item.numero_os || item.id_os, item.prefixo || 'N/A', `${formatarDataSemFuso(item.data_abertura)} ${extrairHoraSemFuso(item.data_abertura)}`, item.categoria || 'Corretiva', item.criticidade || 'Normal', item.status || 'ABERTA' ]);
             } else if (activeTab === 'pecas') {
                 tableColumn = ["Nº OS", "Prefixo", "Código", "Descrição", "Qtd", "Val. Total"];
-                tableRows = filteredCurrent.map(item => [
-                    item.numero_os,
-                    item.prefixo || 'N/A',
-                    item.codigo_item || '-',
-                    item.descricao_item || '-',
-                    item.quantidade || 1,
-                    `R$ ${(Number(item.valor_total) || 0).toFixed(2)}`
-                ]);
+                tableRows = filteredCurrent.map(item => [ item.numero_os, item.prefixo || 'N/A', item.codigo_item || '-', item.descricao_item || '-', item.quantidade || 1, `R$ ${(Number(item.valor_total) || 0).toFixed(2)}` ]);
             } else if (activeTab === 'revisoes') {
                 tableColumn = ["Código", "Prefixo", "Plano", "KM Atual", "Próx. Revisão", "Status"];
-                tableRows = filteredCurrent.map(item => [
-                    item.codigo_veiculo,
-                    item.prefixo || 'N/A',
-                    item.codigo_plano || 'REV-PADRAO',
-                    `${item.km_atual} KM`,
-                    `${item.km_proxima_revisao} KM`,
-                    item.status_revisao || 'OK'
-                ]);
+                tableRows = filteredCurrent.map(item => [ item.codigo_veiculo, item.prefixo || 'N/A', item.codigo_plano || 'REV-PADRAO', `${item.km_atual} KM`, `${item.km_proxima_revisao} KM`, item.status_revisao || 'OK' ]);
             }
 
-            doc.autoTable({
-                head: [tableColumn],
-                body: tableRows,
-                startY: 28,
-                theme: 'striped',
-                styles: { fontSize: 8 },
-                headStyles: { fillColor: [15, 23, 42] }
-            });
-
+            doc.autoTable({ head: [tableColumn], body: tableRows, startY: 28, theme: 'striped', styles: { fontSize: 8 }, headStyles: { fillColor: [15, 23, 42] } });
             doc.save(`jtu_manutencao_${activeTab}_${new Date().toISOString().slice(0,10)}.pdf`);
         }
 
-        // --- MODO TV / FULLSCREEN ---
         function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => console.error(err));
-            } else {
-                if (document.exitFullscreen) document.exitFullscreen();
-            }
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(err => console.error(err));
+            else if (document.exitFullscreen) document.exitFullscreen();
         }
 
         document.getElementById('search-input').addEventListener('input', renderDashboard);
