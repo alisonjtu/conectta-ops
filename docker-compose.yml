@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: conecttaops_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: conectta
+      POSTGRES_PASSWORD: Jtu#2026ubt
+      POSTGRES_DB: conecttaops_db
+      TZ: America/Sao_Paulo
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro # Executa scripts .sql na inicialização
+    networks:
+      - conecttaops_net
+
+  n8n:
+    build:
+      context: ./n8n
+      dockerfile: Dockerfile
+    container_name: conecttaops_n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://192.168.50.101:5678/
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      # Variáveis para usar o PostgreSQL local como BD nativo do n8n (Opcional, mas recomendado para performance)
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=conecttaops_db
+      - DB_POSTGRESDB_USER=conectta
+      - DB_POSTGRESDB_PASSWORD=conecttaops_password
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - postgres
+    networks:
+      - conecttaops_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: conecttaops_frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./html:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - conecttaops_net
+
+volumes:
+  pg_data:
+  n8n_data:
+
+networks:
+  conecttaops_net:
+    driver: bridge
